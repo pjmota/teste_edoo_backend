@@ -1,6 +1,5 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
-import { BenefitCreationAttrs } from "../../types/benefits.types";
-
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { BenefitCreationAttrs } from '../../types/benefits.types';
 
 @Table({ paranoid: true })
 class Benefit extends Model<Benefit, BenefitCreationAttrs> {
@@ -41,6 +40,6 @@ class Benefit extends Model<Benefit, BenefitCreationAttrs> {
     type: DataType.DATE,
   })
   declare deletedAt?: Date;
-};
+}
 
 export default Benefit;

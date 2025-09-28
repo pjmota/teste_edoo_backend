@@ -3,10 +3,10 @@ import { BenefitsService } from './benefits.service';
 import Benefit from '../models/benefits/benefits';
 import { mockBenefitModel } from '../mocks/model.mock';
 import { getModelToken } from '@nestjs/sequelize';
+import { BenefitCreationAttrs } from '../types/benefits.types';
 
 describe('BenefitsService', () => {
   let service: BenefitsService;
-  let model: Partial<typeof Benefit>;
 
   const exampleBenefit = { id: 1, name: 'Vale Refeição', isActive: true };
 
@@ -22,7 +22,6 @@ describe('BenefitsService', () => {
     }).compile();
 
     service = module.get<BenefitsService>(BenefitsService);
-    model = module.get(getModelToken(Benefit)) as Partial<typeof Benefit>;
   });
 
   afterEach(() => {
@@ -74,7 +73,6 @@ describe('BenefitsService', () => {
     });
   });
 
-
   describe('create', () => {
     it('should create a benefit successfully', async () => {
       mockBenefitModel.create.mockResolvedValue(exampleBenefit);
@@ -84,7 +82,9 @@ describe('BenefitsService', () => {
 
     it('should throw error with invalid payload', async () => {
       mockBenefitModel.create.mockRejectedValue(new Error('Invalid payload'));
-      await expect(service.create({} as any)).rejects.toThrow('Invalid payload');
+      await expect(
+        service.create({ name: '' } as BenefitCreationAttrs),
+      ).rejects.toThrow('Invalid payload');
     });
   });
 
@@ -105,7 +105,9 @@ describe('BenefitsService', () => {
     it('should update a benefit', async () => {
       mockBenefitModel.findByPk.mockResolvedValue({
         ...exampleBenefit,
-        update: jest.fn().mockResolvedValue({ ...exampleBenefit, name: 'Novo Nome' }),
+        update: jest
+          .fn()
+          .mockResolvedValue({ ...exampleBenefit, name: 'Novo Nome' }),
       });
       const benefit = await service.update(1, { name: 'Novo Nome' });
       expect(benefit.name).toBe('Novo Nome');
@@ -133,15 +135,25 @@ describe('BenefitsService', () => {
 
   describe('activate / deactivate', () => {
     it('should activate a benefit', async () => {
-      const updateMock = jest.fn().mockResolvedValue({ ...exampleBenefit, isActive: true });
-      mockBenefitModel.findByPk.mockResolvedValue({ ...exampleBenefit, update: updateMock });
+      const updateMock = jest
+        .fn()
+        .mockResolvedValue({ ...exampleBenefit, isActive: true });
+      mockBenefitModel.findByPk.mockResolvedValue({
+        ...exampleBenefit,
+        update: updateMock,
+      });
       const benefit = await service.activate(1);
       expect(benefit.isActive).toBe(true);
     });
 
     it('should deactivate a benefit', async () => {
-      const updateMock = jest.fn().mockResolvedValue({ ...exampleBenefit, isActive: false });
-      mockBenefitModel.findByPk.mockResolvedValue({ ...exampleBenefit, update: updateMock });
+      const updateMock = jest
+        .fn()
+        .mockResolvedValue({ ...exampleBenefit, isActive: false });
+      mockBenefitModel.findByPk.mockResolvedValue({
+        ...exampleBenefit,
+        update: updateMock,
+      });
       const benefit = await service.deactivate(1);
       expect(benefit.isActive).toBe(false);
     });

@@ -11,7 +11,9 @@ const createBenefit = async (
   });
 
   if (exists) {
-    throw new BadRequestException(`Já existe um benefício com o nome "${benefitData.name}"`);
+    throw new BadRequestException(
+      `Já existe um benefício com o nome "${benefitData.name}"`,
+    );
   }
   return benefitModel.create(benefitData);
 };

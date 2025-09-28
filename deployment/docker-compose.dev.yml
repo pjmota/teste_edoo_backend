@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # Aplicação NestJS para desenvolvimento
+  app-dev:
+    build:
+      context: ..
+      dockerfile: Dockerfile.dev
+    container_name: teste_edoo_backend_dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      # Mount do código fonte para hot reload
+      - ..:/app
+      - /app/node_modules
+      # Persistir dados do SQLite
+      - ../data:/app/data
+    restart: unless-stopped
+    networks:
+      - app-network
+    command: npm run start:dev
+
+networks:
+  app-network:
+    driver: bridge

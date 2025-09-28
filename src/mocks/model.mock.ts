@@ -6,4 +6,4 @@ export const mockBenefitModel = {
   findOne: jest.fn(),
   update: jest.fn(),
   destroy: jest.fn().mockResolvedValue(1),
-};
+} as any;

@@ -1,6 +1,6 @@
 import { CreationAttributes } from 'sequelize';
 import Benefit from 'src/models/benefits/benefits';
-import findOneBenefit from './ListOneBenefit.service';
+import findOneBenefit from './list-one-benefit.service';
 
 const updateBenefit = async (
   benefitModel: typeof Benefit,
