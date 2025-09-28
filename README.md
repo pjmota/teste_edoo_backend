@@ -172,14 +172,6 @@ O projeto inclui testes unitários e end-to-end. Para executá-los, utilize os s
   npm run test:e2e
   ```
 
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
-
-## Licença
-
-Este projeto está licenciado sob a licença UNLICENSED.
-
 ---
 
 ## 📊 Monitoramento e Observabilidade
@@ -302,3 +294,18 @@ A API expõe as seguintes rotas:
 | `DELETE`    | `/benefits/:id`      | Remove um benefício pelo ID.                 |
 | `GET`       | `/api`               | Documentação interativa da API (Swagger UI). |
 | `GET`       | `/metrics`           | Métricas de monitoramento da aplicação.      |
+
+---
+
+## 🤝 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📞 Contato
+
+**Paulo José Mota**  
+📧 Email: [paulob1@hotmail.com](mailto:paulob1@hotmail.com)
