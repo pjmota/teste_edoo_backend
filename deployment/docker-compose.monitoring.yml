@@ -5,7 +5,7 @@ services:
       context: ..
       dockerfile: Dockerfile
       target: production
-    container_name: teste_edoo_backend
+    container_name: benefit_flow_api
     ports:
       - "3000:3000"
     environment:

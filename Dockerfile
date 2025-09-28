@@ -61,7 +61,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
   CMD node -e "require('http').get('http://localhost:' + (process.env.PORT || 8080) + '/', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
 
 # Labels para identificação no Cloud Run
-LABEL maintainer="teste_edoo_backend"
+LABEL maintainer="benefit_flow_api"
 LABEL version="1.0.0"
 LABEL description="NestJS API for Benefits Management"
 

@@ -7,7 +7,7 @@ services:
       context: ..
       dockerfile: Dockerfile
       target: production
-    container_name: teste_edoo_backend
+    container_name: benefit_flow_api
     ports:
       - "3000:3000"
     environment:
@@ -29,7 +29,7 @@ services:
   # Opcional: Nginx como reverse proxy
   nginx:
     image: nginx:alpine
-    container_name: teste_edoo_nginx
+    container_name: benefit_flow_nginx
     ports:
       - "80:80"
     volumes:

@@ -50,10 +50,10 @@ docker-compose -f deployment/docker-compose.dev.yml up -d
 ### Produção
 ```bash
 # Build da imagem
-docker build -t teste-edoo-backend .
+docker build -t benefit_flow_api .
 
 # Executar container
-docker run -p 3000:3000 teste-edoo-backend
+docker run -p 3000:3000 benefit_flow_api
 
 # Ou usar docker-compose
 docker-compose -f deployment/docker-compose.yml up -d
@@ -82,7 +82,7 @@ O container inclui health check automático que verifica se a aplicação está 
 docker-compose logs -f app
 
 # Ver logs específicos
-docker logs teste_edoo_backend
+docker logs benefit_flow_api
 ```
 
 ### Métricas
@@ -107,7 +107,7 @@ Se a porta 3000 estiver em uso:
 docker-compose down
 
 # Ou usar porta diferente
-docker run -p 3001:3000 teste-edoo-backend
+docker run -p 3001:3000 benefit_flow_api
 ```
 
 ## ✅ Benefícios da Implementação

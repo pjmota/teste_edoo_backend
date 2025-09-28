@@ -65,7 +65,7 @@
 ## 📁 Estrutura do Projeto
 
 ```
-teste_edoo_backend/
+benefit_flow_api/
 ├── .azure/                    # Pipeline Azure DevOps
 │   └── azure-pipelines.yml
 ├── deployment/                # Arquivos de infraestrutura
@@ -92,7 +92,7 @@ Siga os passos abaixo para configurar e executar o projeto localmente:
 
     ```bash
     git clone <URL_DO_REPOSITORIO>
-    cd teste_edoo_backend
+    cd benefit_flow_api
     ```
 
 2.  **Instale as dependências:**
