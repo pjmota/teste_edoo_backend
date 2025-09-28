@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { BenefitsService } from 'src/services/benefits.service';
-import { BenefitsController } from 'src/controllers/benefits.controller';
+import { BenefitsService } from '../services/benefits.service';
+import { BenefitsController } from '../controllers/benefits.controller';
 import Benefit from './benefits/benefits';
 
 @Module({
@@ -13,7 +13,8 @@ import Benefit from './benefits/benefits';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         dialect: 'sqlite',
-        storage: configService.get<string>('DATABASE_STORAGE') || './data/benefits.db',
+        storage:
+          configService.get<string>('DATABASE_STORAGE') || './data/benefits.db',
         models: [Benefit],
         autoLoadModels: true,
         synchronize: true,
@@ -24,5 +25,4 @@ import Benefit from './benefits/benefits';
   providers: [BenefitsService],
   controllers: [BenefitsController],
 })
-
-export class BenefitsModule {};
+export class BenefitsModule {}

@@ -1,11 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as client from 'prom-client';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['log', 'error', 'warn', 'debug', 'verbose'],
+  });
+
+  // Enable CORS
+  app.enableCors({
+    origin: process.env.CORS_ORIGIN || '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
+
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   const config = new DocumentBuilder()
@@ -19,11 +29,26 @@ async function bootstrap() {
 
   client.collectDefaultMetrics();
 
-  app.getHttpAdapter().get('/metrics', async (req, res) => {
+  app.getHttpAdapter().get('/metrics', async (req: any, res: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     res.setHeader('Content-Type', client.register.contentType);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     res.end(await client.register.metrics());
   });
 
-  await app.listen(process.env.PORT ?? 3000);
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
+
+  Logger.log(
+    `Application is running on: http://localhost:${port}`,
+    'Bootstrap',
+  );
+  Logger.log(
+    `Swagger documentation available at: http://localhost:${port}/api`,
+    'Bootstrap',
+  );
 }
-bootstrap();
+bootstrap().catch((error) => {
+  Logger.error('Failed to start application', error);
+  process.exit(1);
+});

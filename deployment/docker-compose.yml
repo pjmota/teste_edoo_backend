@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Aplicação NestJS
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      target: production
+    container_name: teste_edoo_backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      # Persistir dados do SQLite
+      - ../data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - app-network
+
+  # Opcional: Nginx como reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: teste_edoo_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ../nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - app-network
+    profiles:
+      - with-nginx
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  app-data:
+    driver: local

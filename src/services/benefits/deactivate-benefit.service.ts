@@ -1,5 +1,5 @@
 import Benefit from 'src/models/benefits/benefits';
-import updateBenefit from '../BenefitsService/UpdateBenefit.service';
+import updateBenefit from './update-benefit.service';
 
 const deactivateBenefit = async (
   benefitModel: typeof Benefit,

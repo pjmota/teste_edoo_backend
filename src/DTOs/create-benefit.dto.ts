@@ -19,7 +19,9 @@ export class CreateBenefitDto {
   })
   @IsString()
   @IsOptional()
-  @Length(0, 255, { message: 'O campo description deve ter no máximo 255 caracteres' })
+  @Length(0, 255, {
+    message: 'O campo description deve ter no máximo 255 caracteres',
+  })
   description?: string;
 
   @ApiPropertyOptional({
@@ -29,4 +31,4 @@ export class CreateBenefitDto {
   @IsBoolean()
   @IsOptional()
   isActive?: boolean;
-};
+}
